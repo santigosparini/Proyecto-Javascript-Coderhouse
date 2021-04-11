@@ -1,4 +1,11 @@
-let totalGastos = 0
+class Gastos {
+  constructor (nombre, valor){
+    this.nombre = nombre;
+    this.valor = valor;
+  }     
+}
+
+let listaGastos = []
 let presupuesto = 0
 let cantidadGastos = 0
 
@@ -7,11 +14,15 @@ function solicitarDatos (){
   cantidadGastos = parseInt(prompt('Indique la cantidad de gastos que sumará'))
   
   for(let i=0; i<cantidadGastos; i++){
-    let gasto = parseInt(prompt('Ingrese el valor de su gasto ' + parseInt(i+1)))
-    totalGastos = totalGastos + gasto
+    let gasto = new Gastos (prompt('Ingrese el nombre de su gasto ' + (i+1)), parseInt(prompt('Ingrese el valor de su gasto ' + (i+1))))
+    listaGastos.push(gasto)
 }
 }
-function calcularPresupuesto(totalGastos, presupuesto){
+function calcularPresupuesto(listaGastos, presupuesto){
+    let totalGastos = 0
+    for(let i=0; i<listaGastos.length; i++){
+      totalGastos += listaGastos[i].valor
+    }
     if (totalGastos > presupuesto){
       alert ('El gasto total no puede ser mayor que el presupuesto')
     } else{
@@ -21,4 +32,4 @@ function calcularPresupuesto(totalGastos, presupuesto){
 }
 
 solicitarDatos();
-calcularPresupuesto(totalGastos, presupuesto);
+calcularPresupuesto(listaGastos, presupuesto);
