@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <meta http-equiv="X-UA-Compatible" content="ie=edge">
+ <!-- bootstrap css -->
+ <link rel="stylesheet" href="css/bootstrap.min.css">
+ <!-- main css -->
+ <link rel="stylesheet" href="css/main.css">
+ <!-- google fonts -->
+ <link href="https://fonts.googleapis.com/css?family=Courgette" rel="stylesheet">
+
+ <!-- font awesome -->
+ <link rel="stylesheet" href="css/all.css">
+ <title>Aplicación de presupuesto</title>
+</head>
+
+<body>
+ <div class="container-fluid">
+  <div class="row">
+   <div class="col-11 mx-auto pt-3">
+    <!-- Título -->
+    <h3 class="text-uppercase mb-4">Aplicación de presupuesto</h3>
+    <div class="row">
+     <div class="col-md-5 my-3">
+      <!-- Alerta de presupuesto -->
+      <div class="budget-feedback alert alert-danger text-capitalize">Alertas de presupuesto</div>
+      <!-- Formulario de presupuesto -->
+      <form id="budget-form" class=" budget-form">
+       <h5 class="text-capitalize">Ingresa tu presupuesto</h5>
+       <div class="form-group">
+        <input type="number" class="form-control budget-input" id="budget-input">
+       </div>
+       <!-- Botón calcular -->
+       <button type="submit" class="btn text-capitalize budget-submit" id="budget-submit">Calcular</button>
+      </form>
+     </div>
+     <div class="col-md-7">
+      <!-- Info de aplicación -->
+      <div class="row my-3">
+       <div class="col-4 text-center mb-2">
+        <h6 class="text-uppercase info-title">Presupuesto</h6>
+        <span class="budget-icon"><i class="fas fa-money-bill-alt"></i></span>
+        <h4 class="text-uppercase mt-2 budget" id="budget"><span>$ </span><span id="budget-amount">0</span></h4>
+       </div>
+       <div class="col-4 text-center">
+        <h6 class="text-uppercase info-title">Gastos</h6>
+        <span class="expense-icon"><i class="far fa-credit-card"></i></span>
+        <h4 class="text-uppercase mt-2 expense" id="expense"><span>$ </span><span id="expense-amount">0</span></h4>
+       </div>
+       <div class="col-4 text-center">
+        <h6 class="text-uppercase info-title">Balance</h6>
+        <span class="balance-icon"><i class="fas fa-dollar-sign"></i></span>
+        <h4 class="text-uppercase mt-2 balance" id="balance"> <span>$ </span><span id="balance-amount">0</span></h4>
+       </div>
+      </div>
+     </div>
+    </div>
+
+    <div class="row">
+     <div class="col-md-5 my-3">
+      <!-- Alerta de gastos -->
+      <div class="expense-feedback alert alert-danger text-capitalize">Alerta de gastos</div>
+      <!-- Formulario de gastos -->
+      <form id="expense-form" class=" expense-form">
+       <h5 class="text-capitalize">Ingresa tu gasto</h5>
+       <div class="form-group">
+        <input type="text" class="form-control expense-input" id="expense-input">
+       </div>
+       <h5 class="text-capitalize">Ingresa el monto de tu gasto</h5>
+       <div class="form-group">
+        <input type="number" class="form-control expense-input" id="amount-input">
+       </div>
+       <!-- Botón de agregar gasto -->
+       <button type="submit" class="btn text-capitalize expense-submit" id="expense-submit">Agregar gasto</button>
+      </form>
+     </div>
+     <div class="col-md-7 my-3">
+      <!-- Lista de gastos -->
+      <div class="expense-list" id="expense-list">
+
+       <div class="expense-list__info d-flex justify-content-between text-capitalize">
+        <h5 class="list-item">Nombre de gasto</h5>
+        <h5 class="list-item">Valor del gasto</h5>
+        <h5 class="list-item"></h5>
+       </div>
+
+      </div>
+     </div>
+    </div>
+
+
+
+
+   </div>
+  </div>
+ </div>
+
+
+
+
+ <!-- jquery -->
+ <script src="js/jquery-3.3.1.min.js"></script>
+ <!-- bootstrap js -->
+ <script src="js/bootstrap.bundle.min.js"></script>
+ <!-- script js -->
+ <script src="js/app.js"></script>
+</body>
+
+</html>
