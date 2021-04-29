@@ -5,47 +5,6 @@ class Gastos {
   }     
 }
 
-/*
-class Presupuestos {
-  constructor (nombre, valor){
-    this.nombre = nombre;
-    this.valor = valor;
-  }     
-}
-*/
-
-/*
-function cuantosPresupuestos(){
-  cantidadPresupuestos = parseInt(prompt('Cuántos presupuestos desea calcular?'))
-}
-function solicitarDatos (i){
-  let presupuesto = new Presupuestos ('Presupuesto '+ (i),0)
-  presupuesto.valor = parseInt(prompt('Ingrese su presupuesto ' + (i+1)))
-  listaPresupuestos.push(presupuesto)
-  cantidadGastos = parseInt(prompt('Indique la cantidad de gastos que sumará'))
-  
-  for(let i=0; i<cantidadGastos; i++){
-    let gasto = new Gastos (prompt('Ingrese el nombre de su gasto ' + (i+1)), parseInt(prompt('Ingrese el valor de su gasto ' + (i+1))))
-    listaGastos.push(gasto)
-}
-}
-function calcularPresupuesto(listaGastos, listaPresupuestos, i){
-    let totalGastos = 0
-    for(let i=0; i<listaGastos.length; i++){
-      totalGastos += listaGastos[i].valor
-    }
-    if (totalGastos > listaPresupuestos[i].valor){
-      alert ('El gasto total no puede ser mayor que el presupuesto')
-    }else{
-      let balance = listaPresupuestos[i].valor - totalGastos
-      alert ('Su balance es de ' + balance)
-    }
-}
-*/
-
-// let listaPresupuestos = []
-// let totalGastos = 0
-
 // traigo los elementos del documento html
 let budgetForm = document.getElementById("budget-form");
 let budgetInput = document.getElementById("budget-input");
@@ -132,14 +91,3 @@ expenseForm.addEventListener('submit', ( event ) => {
 }
 }
 )
-
-/*
-cuantosPresupuestos();
-for(let i=0; i<cantidadPresupuestos;i++){
-  solicitarDatos(i);
-  calcularPresupuesto(listaGastos, listaPresupuestos, i);
-  listaGastos.splice(0, listaGastos.length)
-}
-
-*/
-
