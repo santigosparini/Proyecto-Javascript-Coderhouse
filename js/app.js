@@ -1,5 +1,6 @@
 class Gastos {
-  constructor (nombre, valor){
+  constructor (id, nombre, valor){
+    this.id = id;
     this.nombre = nombre;
     this.valor = valor;
   }     
@@ -19,25 +20,92 @@ let expenseForm = document.getElementById("expense-form");
 let expenseInput = document.getElementById("expense-input");
 let amountInput = document.getElementById("amount-input");
 
+let expenseList = document.getElementById("expense-list");
+let balance = document.getElementById("balance");
 
 //defino variables
+let itemID = 0;
 let listaGastos = JSON.parse(localStorage.getItem('listaGastos'));
 if(!listaGastos) {
     listaGastos = []
 };
 
+let init = () => {
+  if(listaGastos){
+    for(const gasto of listaGastos){
+      addExpense(gasto);
+      itemID ++;
+      const totalGastos = getTotalGastos(listaGastos);
+      showBalance();
+    }
+  }  
+}
 // función para obtener el total de gastos del localStorage
 let getTotalGastos = (listaGastos) => {
   let totalGastos = 0;
   if(listaGastos){ 
     for(let i = 0; i < listaGastos.length; i++){
-      totalGastos += parseInt(listaGastos[i].valor);
+      totalGastos = listaGastos.reduce(function(acc, curr){
+        acc += curr.valor;
+        return acc;
+      }, 0)
     }
   }
+  expenseAmount.textContent = totalGastos;
   return totalGastos;
 }
 
-//agrego los eventListeners
+// función para mostrar el balance
+let showBalance = () => {
+  const totalGastos = getTotalGastos(listaGastos);
+  const total = parseInt(budgetAmount.textContent) - totalGastos;
+  balanceAmount.textContent = total;
+  if (total < 0 ){
+    balance.classList.remove("showGreen", "showBlack");
+    balance.classList.add("showRed");
+  }
+  else if (total > 0 ){
+    balance.classList.remove("showRed", "showBlack");
+    balance.classList.add("showGreen");
+  }
+  else if (total === 0 ){
+    balance.classList.remove("showRed", "showGreen");
+    balance.classList.add("showBlack");
+  }
+}
+
+// función para agregar la lista de gastos en pantalla
+let addExpense = (gasto) => {
+  const div = document.createElement('div');
+  div.classList.add('expense');
+  div.innerHTML = `
+  <div class="expense-item d-flex justify-content-between align-items-baseline">
+         <h6 class="expense-title mb-0 text-uppercase list-item">- ${gasto .nombre}</h6>
+         <h5 class="expense-amount mb-0 list-item">${gasto .valor}</h5>
+         <div class="expense-icons list-item">
+          <a href="#" class="edit-icon mx-2" data-id="${gasto .id}">
+           <i class="fas fa-edit"></i>
+          </a>
+          <a href="#" class="delete-icon" data-id="${gasto .id}">
+           <i class="fas fa-trash"></i>
+          </a>
+         </div>
+        </div>
+  `
+  expenseList.appendChild(div);
+}
+
+// función para editar elemento de la lista de gastos
+let editExpense = (element) => {
+
+}
+
+// función para eliminar un elemento de la lista de gastos
+let deleteExpense = (element) => {
+  
+}
+
+//event listener del Form de presupuesto
 budgetForm.addEventListener('submit', ( event ) => {
   event.preventDefault();
 
@@ -55,11 +123,14 @@ budgetForm.addEventListener('submit', ( event ) => {
   if(!totalGastos){totalGastos = 0};
   
   budgetAmount.innerHTML = valor;
-  balanceAmount.innerHTML = valor - totalGastos;
+  // balanceAmount.innerHTML = valor - totalGastos;
   budgetInput.value = '';
+  showBalance();
+
   }
 })
 
+// event listener del Form de Gastos
 expenseForm.addEventListener('submit', ( event ) => {
   event.preventDefault();
 
@@ -75,15 +146,19 @@ expenseForm.addEventListener('submit', ( event ) => {
   } else {
 
   // creo el gasto, lo incluyo en el array y lo meto en el localStorage
-  let gasto = new Gastos(nombre, valor);
+  let gasto = new Gastos(itemID, nombre, valor);
+  itemID++;
   listaGastos.push(gasto);
-  localStorage.setItem("listaGastos", JSON.stringify(listaGastos))
+  localStorage.setItem("listaGastos", JSON.stringify(listaGastos));
 
-  let totalGastos = getTotalGastos(listaGastos);
+  // let totalGastos = getTotalGastos(listaGastos);
+  // expenseAmount.innerHTML = totalGastos;
 
-  expenseAmount.innerHTML = totalGastos;
+  getTotalGastos(listaGastos);
   
-  balanceAmount.innerHTML = parseInt(budgetAmount.innerHTML) - totalGastos;
+  // balanceAmount.innerHTML = parseInt(budgetAmount.innerHTML) - totalGastos;
+  addExpense(gasto);
+  showBalance();
 
   expenseInput.value = '';
   amountInput.value = '';
@@ -91,3 +166,16 @@ expenseForm.addEventListener('submit', ( event ) => {
 }
 }
 )
+
+// event listener de la lista de gastos
+expenseList.addEventListener('click', function(event){
+    if(event.target.parentElement.classList.contains('edit-icon')){
+      editExpense(event.target.parentElement);
+    }
+    else if(event.target.parentElement.classList.contains('delete-icon')){
+      deleteExpense(event.target.parentElement);
+    }
+})
+
+
+init();
